@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>{{.Title}}</h1>
+        <p>{{.Subtitle}}</p>
+    </header>
+
+    <main>
+        {{range .Thoughts}}
+        <article class="thought-preview">
+            <div class="content">
+                {{.Content}} <a href="{{.HTMLPath}}" class="read-more">more</a>
+            </div>
+            <div class="tags-and-date">
+                <div class="tags">
+                    {{range .Tags}}
+                    <span class="tag">{{.}}</span>
+                    {{end}}
+                </div>
+                <time>{{.DateString}}</time>
+            </div>
+        </article>
+        {{end}}
+    </main>
+
+    <footer>
+        <nav class="footer-nav">
+            <div class="nav-section">
+                <strong>Browse</strong>
+                <ul>
+                    <li><a href="all.html">All thoughts</a></li>
+                    <li><a href="archive/">By month</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <strong>Tags</strong>
+                <p>
+                    {{range $i, $tag := .AllTags}}
+                    {{if $i}} · {{end}}<a href="tags/{{$tag}}.html">{{$tag}}</a>
+                    {{end}}
+                </p>
+            </div>
+        </nav>
+        
+        <p class="note">Showing latest 20 thoughts</p>
+    </footer>
+</body>
+</html>

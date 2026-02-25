@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive - Pensieve</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html">Pensieve</a></h1>
+        <p>Archive by month</p>
+    </header>
+
+    <main>
+        <div class="archive-list">
+            {{range .Years}}
+            <section class="year-section">
+                <h2>{{.Year}}</h2>
+                <ul>
+                    {{range .Months}}
+                    <li>
+                        <a href="{{.YearMonth}}.html">{{.Title}}</a> 
+                        <span class="count">({{.Count}} thoughts)</span>
+                    </li>
+                    {{end}}
+                </ul>
+            </section>
+            {{end}}
+        </div>
+    </main>
+
+    <footer>
+        <p><a href="../index.html">← Back to latest</a> · <a href="../all.html">View all thoughts</a></p>
+    </footer>
+</body>
+</html>
