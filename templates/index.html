@@ -19,7 +19,7 @@
         {{range .Thoughts}}
         <article class="thought-preview">
             <div class="content">
-                {{.Content}} <a href="{{.HTMLPath}}" class="read-more">more</a>
+                {{.Content}}{{if .IsLong}} <a href="{{.HTMLPath}}" class="read-more">more</a>{{end}}
             </div>
             <div class="tags-and-date">
                 <div class="tags">

@@ -26,6 +26,7 @@ type Thought struct {
 	HTMLPath    string
 	PrevThought *Thought
 	NextThought *Thought
+	IsLong      bool
 }
 
 type FrontMatter struct {
@@ -169,6 +170,9 @@ func readThoughts(dir string) ([]Thought, error) {
 
 		// Extract first paragraph for preview
 		htmlContent := buf.String()
+		
+		// Determine if content is "long" (more than ~200 chars or 3 lines)
+		isLong := len(strings.TrimSpace(strings.ReplaceAll(htmlContent, "<p>", ""))) > 200
 
 		// Create slug from filename
 		slug := strings.TrimSuffix(file.Name(), ".md")
@@ -181,6 +185,7 @@ func readThoughts(dir string) ([]Thought, error) {
 			Tags:       strings.Split(strings.TrimSpace(fm.Tags), ","),
 			Slug:       slug,
 			HTMLPath:   "thoughts/" + slug + ".html",
+			IsLong:     isLong,
 		}
 
 		// Trim spaces from tags
