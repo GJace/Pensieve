@@ -32,6 +32,7 @@ type Thought struct {
 type FrontMatter struct {
 	Tags string `yaml:"tags"`
 	Date string `yaml:"date"`
+	Time string `yaml:"time"`
 }
 
 type PageData struct {
@@ -161,8 +162,16 @@ func readThoughts(dir string) ([]Thought, error) {
 		var fm FrontMatter
 		yaml.Unmarshal([]byte(parts[1]), &fm)
 
-		// Parse date
-		date, _ := time.Parse("2006-01-02", fm.Date)
+		// Parse date and time
+		var date time.Time
+		if fm.Time != "" {
+			// Parse with time if provided
+			dateTimeStr := fm.Date + " " + fm.Time
+			date, _ = time.Parse("2006-01-02 15:04", dateTimeStr)
+		} else {
+			// Default to 00:00 if no time provided
+			date, _ = time.Parse("2006-01-02", fm.Date)
+		}
 
 		// Convert markdown to HTML
 		var buf strings.Builder
