@@ -29,26 +29,11 @@
                 {{end}}
             </div>
 
-            <nav class="thought-nav">
-                {{if $thought.PrevThought}}
-                <a href="{{$thought.PrevThought.Slug}}.html">← Previous</a>
-                {{else}}
-                <span class="disabled">← Previous</span>
-                {{end}}
-                
-                <span>·</span>
-                
-                {{if $thought.NextThought}}
-                <a href="{{$thought.NextThought.Slug}}.html">Next →</a>
-                {{else}}
-                <span class="disabled">Next →</span>
-                {{end}}
-            </nav>
         </article>
     </main>
 
     <footer>
-        <p><a href="../index.html">← Back to all thoughts</a></p>
+        <p><a href="../index.html">← Back to Pensieve</a></p>
     </footer>
 </body>
 </html>
