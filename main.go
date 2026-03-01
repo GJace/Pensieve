@@ -202,8 +202,9 @@ func readThoughts(dir string) ([]Thought, error) {
 					}
 					pText := strings.ReplaceAll(strings.ReplaceAll(p, "<p>", ""), "\n", "")
 					charCount += len(pText)
-					previewParts = append(previewParts, p+"</p>")
-					if charCount > 200 {
+					if charCount <= 200 || len(previewParts) == 0 {
+						previewParts = append(previewParts, p+"</p>")
+					} else {
 						break
 					}
 				}
@@ -217,9 +218,9 @@ func readThoughts(dir string) ([]Thought, error) {
 				}
 				preview = "<p>" + truncated
 			}
-		} else {
-			preview = strings.TrimSuffix(preview, "</p>")
 		}
+		
+		preview = strings.TrimSuffix(strings.TrimSpace(preview), "</p>")
 
 		slug := strings.TrimSuffix(file.Name(), ".md")
 
