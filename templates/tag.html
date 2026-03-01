@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tag: {{.Tag}} - Pensieve</title>
+    <title>Pensieve: {{.Tag}}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 <body>
     <header>
         <h1><a href="../index.html">Pensieve</a></h1>
-        <p>Thoughts tagged with <strong>{{.Tag}}</strong></p>
+        <p>Thoughts on {{.Tag}}</p>
     </header>
 
     <main>
@@ -39,7 +39,7 @@
 
     <footer>
         <p><a href="../index.html">← Back to latest</a></p>
-        <p>Other tags: 
+        <p>More topics: 
             {{range $i, $tag := .AllTags}}
             {{if ne $tag $.Tag}}
             {{if $i}} · {{end}}<a href="{{$tag}}.html">{{$tag}}</a>

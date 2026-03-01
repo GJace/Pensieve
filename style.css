@@ -241,8 +241,8 @@ footer p {
 
 /* Tag pages */
 .tag.active {
-    background: #0066cc;
-    color: white;
+    background: #f4e4a3;
+    color: #333;
 }
 
 /* Links in general */
