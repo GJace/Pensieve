@@ -21,6 +21,7 @@ type Thought struct {
 	DateString  string
 	Title       string
 	Content     template.HTML
+	Preview     template.HTML
 	Tags        []string
 	Slug        string
 	HTMLPath    string
@@ -177,11 +178,21 @@ func readThoughts(dir string) ([]Thought, error) {
 		var buf strings.Builder
 		md.Convert([]byte(parts[2]), &buf, parser.WithContext(parser.NewContext()))
 
-		// Extract first paragraph for preview
+		// Full content
 		htmlContent := buf.String()
 		
-		// Determine if content is "long" (more than ~200 chars or 3 lines)
-		isLong := len(strings.TrimSpace(strings.ReplaceAll(htmlContent, "<p>", ""))) > 200
+		// Create preview (first paragraph or truncate at ~200 chars)
+		preview := htmlContent
+		plainText := strings.TrimSpace(strings.ReplaceAll(strings.ReplaceAll(htmlContent, "<p>", ""), "</p>", ""))
+		isLong := len(plainText) > 200
+		
+		if isLong {
+			// Try to extract first paragraph
+			paragraphs := strings.Split(htmlContent, "</p>")
+			if len(paragraphs) > 0 {
+				preview = paragraphs[0] + "</p>"
+			}
+		}
 
 		// Create slug from filename
 		slug := strings.TrimSuffix(file.Name(), ".md")
@@ -191,6 +202,7 @@ func readThoughts(dir string) ([]Thought, error) {
 			Date:       date,
 			DateString: date.Format("2006-01-02"),
 			Content:    template.HTML(htmlContent),
+			Preview:    template.HTML(preview),
 			Tags:       strings.Split(strings.TrimSpace(fm.Tags), ","),
 			Slug:       slug,
 			HTMLPath:   "thoughts/" + slug + ".html",
