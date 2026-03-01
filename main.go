@@ -183,19 +183,24 @@ func readThoughts(dir string) ([]Thought, error) {
 		
 		// Create preview
 		preview := htmlContent
-		plainText := strings.TrimSpace(strings.ReplaceAll(strings.ReplaceAll(htmlContent, "<p>", ""), "</p>", ""))
+		// Strip all HTML tags to get plain text
+		plainText := htmlContent
+		plainText = strings.ReplaceAll(plainText, "<p>", "")
+		plainText = strings.ReplaceAll(plainText, "</p>", " ")
+		plainText = strings.ReplaceAll(plainText, "<br>", " ")
+		plainText = strings.ReplaceAll(plainText, "<br/>", " ")
+		plainText = strings.ReplaceAll(plainText, "\n", " ")
+		plainText = strings.TrimSpace(plainText)
+		
 		isLong := len(plainText) > 200
 		
 		if isLong {
 			// Truncate at ~200 chars, at sentence boundary
-			truncated := plainText
-			if len(plainText) > 200 {
-				truncated = plainText[:200]
-				// Find last sentence ending (. ! ?)
-				lastPeriod := strings.LastIndexAny(truncated, ".!?")
-				if lastPeriod > 0 {
-					truncated = plainText[:lastPeriod+1]
-				}
+			truncated := plainText[:200]
+			// Find last sentence ending (. ! ?)
+			lastPeriod := strings.LastIndexAny(truncated, ".!?")
+			if lastPeriod > 0 {
+				truncated = plainText[:lastPeriod+1]
 			}
 			preview = "<p>" + truncated + "</p>"
 		}
