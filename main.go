@@ -181,17 +181,23 @@ func readThoughts(dir string) ([]Thought, error) {
 		// Full content
 		htmlContent := buf.String()
 		
-		// Create preview (first paragraph or truncate at ~200 chars)
+		// Create preview
 		preview := htmlContent
 		plainText := strings.TrimSpace(strings.ReplaceAll(strings.ReplaceAll(htmlContent, "<p>", ""), "</p>", ""))
 		isLong := len(plainText) > 200
 		
 		if isLong {
-			// Try to extract first paragraph
-			paragraphs := strings.Split(htmlContent, "</p>")
-			if len(paragraphs) > 0 {
-				preview = paragraphs[0] + "</p>"
+			// Truncate at ~200 chars, at sentence boundary
+			truncated := plainText
+			if len(plainText) > 200 {
+				truncated = plainText[:200]
+				// Find last sentence ending (. ! ?)
+				lastPeriod := strings.LastIndexAny(truncated, ".!?")
+				if lastPeriod > 0 {
+					truncated = plainText[:lastPeriod+1]
+				}
 			}
+			preview = "<p>" + truncated + "</p>"
 		}
 
 		// Create slug from filename
