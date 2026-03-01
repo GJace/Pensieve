@@ -174,16 +174,11 @@ func readThoughts(dir string) ([]Thought, error) {
 			date, _ = time.Parse("2006-01-02", fm.Date)
 		}
 
-		// Convert markdown to HTML
 		var buf strings.Builder
 		md.Convert([]byte(parts[2]), &buf, parser.WithContext(parser.NewContext()))
 
-		// Full content
 		htmlContent := buf.String()
 		
-		// Create preview
-		preview := htmlContent
-		// Strip all HTML tags to get plain text
 		plainText := htmlContent
 		plainText = strings.ReplaceAll(plainText, "<p>", "")
 		plainText = strings.ReplaceAll(plainText, "</p>", " ")
@@ -194,18 +189,35 @@ func readThoughts(dir string) ([]Thought, error) {
 		
 		isLong := len(plainText) > 200
 		
+		preview := htmlContent
 		if isLong {
-			// Truncate at ~200 chars, at sentence boundary
-			truncated := plainText[:200]
-			// Find last sentence ending (. ! ?)
-			lastPeriod := strings.LastIndexAny(truncated, ".!?")
-			if lastPeriod > 0 {
-				truncated = plainText[:lastPeriod+1]
+			paragraphs := strings.Split(htmlContent, "</p>")
+			
+			if len(paragraphs) > 2 {
+				charCount := 0
+				previewParts := []string{}
+				for i, p := range paragraphs {
+					if i == len(paragraphs)-1 && p == "\n" {
+						break
+					}
+					pText := strings.ReplaceAll(strings.ReplaceAll(p, "<p>", ""), "\n", "")
+					charCount += len(pText)
+					previewParts = append(previewParts, p+"</p>")
+					if charCount > 200 {
+						break
+					}
+				}
+				preview = strings.Join(previewParts, "")
+			} else {
+				truncated := plainText[:200]
+				lastPeriod := strings.LastIndexAny(truncated, ".!?")
+				if lastPeriod > 0 {
+					truncated = plainText[:lastPeriod+1]
+				}
+				preview = "<p>" + truncated + "</p>"
 			}
-			preview = "<p>" + truncated + "</p>"
 		}
 
-		// Create slug from filename
 		slug := strings.TrimSuffix(file.Name(), ".md")
 
 		thought := Thought{
