@@ -208,14 +208,17 @@ func readThoughts(dir string) ([]Thought, error) {
 					}
 				}
 				preview = strings.Join(previewParts, "")
+				preview = strings.TrimSuffix(preview, "</p>")
 			} else {
 				truncated := plainText[:200]
 				lastPeriod := strings.LastIndexAny(truncated, ".!?")
 				if lastPeriod > 0 {
 					truncated = plainText[:lastPeriod+1]
 				}
-				preview = "<p>" + truncated + "</p>"
+				preview = "<p>" + truncated
 			}
+		} else {
+			preview = strings.TrimSuffix(preview, "</p>")
 		}
 
 		slug := strings.TrimSuffix(file.Name(), ".md")
