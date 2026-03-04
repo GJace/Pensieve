@@ -1,0 +1,21 @@
+---
+tags: tcg, riftbound
+date: 2026-03-04
+time: 01:13
+---
+
+I decided to try mid range Draven today. I brought to a skirmish and lost in the pseudo final. The tournament went well overall, I really enjoyed the deck, but I hate the irelia matchup.
+
+2-0 Mirror
+Much more fun than I anticipated! Starving opponent for resources is key. Keep in mind: we don't have a lot of interaction for units in base, so don't be afraid to retreat when in doubt. Conceding a few points is sometimes better than contesting and giving cards to your opponent.
+
+2-0 Irelia
+Very tough matchup. I have to consider a lot of things when playing.
+
+1-1 Azir
+Shurima! Game 1 he played Arise when I was tapped out, even though I had Bargain in hand, very sad. Game 2 I managed to Thermobeam. Managing an army of 6+ tokens and as many equipment was too much for my opponent I think, so he took (understandably?) very long turns. We started game 3 but did not have time to finish; I was in an extremely amazing position, with Thermobeam, Bargain and other interactions in hand.
+
+1-2 Irelia
+Opponent was 3-0, so the winner would have gotten the Regional Bye. Game 1 got blasted. Once Irelia gets a tiny bit ahead, I struggle a lot both mentally and play wise. Today was my first time playing Draven and I still need a lot of reps in this matchup. I feel like I need to see these scenarios multiple times, in order to start to find possible ways out. Second game I luckily won. I think my opponent bricked, he was very unhappy with his first 5 cards. Game 3 started on the backfoot. He play Stella on turn 2 and equipped GA in order to move it and conquer immediately. I challenged it on my turn 2 with a 2might+Kaisa, but he had a Discipline, which ended up clearing my board and leaving him with just a Stella. He then started to get too much advantage from Stella and I couldn't keep up. I should have 100% played different that turn.
+
+The skirmish was fun. Draven is fun. Having a lot of flexible beefy 1-ofs really paid off for me. I will need to study Irelia matchup more. I also need to speed up my Stacked Deck a bit, so that I don't end up going extra time against grindier decks.
